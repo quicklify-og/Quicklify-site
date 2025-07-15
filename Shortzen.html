@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShortZen</title>
+  <style>
+    :root {
+      --bg-light: #e6f7ff;
+      --bg-dark: #0e0e0e;
+      --text-light: #333;
+      --text-dark: #f1f1f1;
+      --card-light: #fff;
+      --card-dark: #1c1c1c;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    .navbar {
+      background: #8e6cf4;
+      padding: 16px;
+      text-align: center;
+    }
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #5ee7df, #b490ca);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .dark-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 22px;
+      background: #7b5cff;
+      color: yellow;
+      border-radius: 50%;
+      padding: 12px;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 900;
+      margin: 0;
+      background: linear-gradient(90deg, #0099ff, #ff66cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: float-up 4s ease-in-out infinite;
+    }
+    .hero  {
+      font-size: 16px;
+      margin-top: 15px;
+      animation: float-down 4s ease-in-out infinite;
+    }
+    .shorten-box {
+      background: var(--card-light);
+      margin: 20px;
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: background 0.4s ease;
+    }
+    body.dark-mode .shorten-box {
+      background: var(--card-dark);
+    }
+    h2 { color: #7b5cf3; }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #7b5cf3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .share-buttons {
+      margin-top: 10px;
+      display: none;
+    }
+    .share-buttons a {
+      margin: 0 10px;
+      display: inline-block;
+    }
+    .share-buttons img {
+      width: 30px;
+    }
+    .history-button {
+      background: #7b5cf3;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultBox {
+      display: none;
+      margin-top: 20px;
+    }
+    #qrCodeContainer {
+      margin-top: 15px;
+    }
+    #historyOverlay {
+      position: fixed;
+      bottom: -110%;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: white;
+      z-index: 999;
+      padding: 20px;
+      transition: bottom 0.4s ease;
+      overflow-y: auto;
+    }
+    #historyOverlay.active {
+      bottom: 0;
+    }
+    #historyOverlay h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    #historyOverlay .close-btn {
+      position: absolute;
+      top: 25px;
+      right: 20px;
+      background: red;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+    }
+    .delete-history {
+      margin-bottom: 20px;
+      background: red;
+    }
+    .history-entry {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+    .features {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+    {
+    	.delete-history {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.history-entry {
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  word-break: break-word;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.history-entry a {
+  color: #7b5cf3;
+  text-decoration: none;
+}
+
+.history-entry a:hover {
+  text-decoration: underline;
+}
+
+.history-entry time {
+  font-size: 12px;
+  color: #888;
+  display: block;
+  margin-bottom: 5px;
+}
+{
+	/* Dark Mode for History Overlay */
+body.dark-mode #historyOverlay {
+  background: var(--card-dark);
+  color: var(--text-dark);
+}
+
+body.dark-mode .history-entry {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+body.dark-mode .history-entry a {
+  color: #91aaff;
+}
+
+body.dark-mode .delete-history {
+  background: #e74c3c;
+}
+}
+.delete-btn {
+  background-color: #e74c3c; /* red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b; /* darker red on hover */
+}
+    }
+    .feature {
+      background: var(--card-light);
+      padding: 20px;
+      width: 90%;
+      border-radius: 50px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: background 0.4s ease;
+    }
+    body.dark-mode .feature {
+      background: var(--card-dark);
+    }
+    .feature h3 {
+      color: #7d4bff;
+      margin-bottom: 8px;
+    }
+    .feature p {
+      margin: 0;
+    }
+    @keyframes float-up {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes float-down {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    @keyframes float-left {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-8px); }
+    }
+    @keyframes float-right {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(8px); }
+    }
+    .animate-up { animation: float-up 4s ease-in-out infinite; }
+    .animate-down { animation: float-down 4s ease-in-out infinite; }
+    .animate-left { animation: float-left 4s ease-in-out infinite; }
+    .animate-right { animation: float-right 4s ease-in-out infinite; }
+    .footer {
+      background: var(--card-light);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      margin-top: 40px;
+      border-top: 1px solid #ddd;
+    }
+    body.dark-mode .footer {
+      background: var(--card-dark);
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">ShortZen</div>
+  </header>
+
+  <section class="hero">
+    <h1>Shorten. Share. <br><span class="highlight">Simplify.</span></h1>
+    <p>ShortZen is your personal URL shortener crafted for simplicity, performance, and style. Shrink long URLs into tiny, manageable ones, share them easily, and even generate QR codes — all with a touch of elegance.</p>
+  </section>
+
+  <section class="shorten-box">
+  <div style="position: relative;">
+    <h2 style="display: inline-block;">Paste your long URL</h2>
+    <span style="position: absolute; top: 0; right: 0; font-size: 22px; cursor: pointer;" onclick="refreshForm()">🔄</span>
+  </div>
+  <p class="animate-down">Get a short, shareable link instantly</p>
+  <input type="text" id="longUrl" placeholder="https://example.com" />
+  <div>
+    <button onclick="shortenUrl()">Shorten</button>
+  </div>
+
+  <div id="resultBox">
+    <input type="text" id="shortUrl" readonly />
+    <div>
+      <button onclick="copyShortUrl()">Copy</button>
+      <button onclick="generateQRCode()">QR Code</button>
+    </div>
+    <div id="qrCodeContainer"></div>
+    <div class="share-buttons" id="shareButtons">
+      <a id="whatsapp-share" href="#" target="_blank">
+        <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp" />
+      </a>
+      <a id="telegram-share" href="#" target="_blank">
+        <img src="https://img.icons8.com/color/48/telegram-app--v1.png" alt="Telegram" />
+      </a>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;">
+    <button class="history-button" onclick="showHistory()">📂 History</button>
+  </div>
+</section>
+
+  <section class="features">
+    <div class="feature animate-up">
+      <h3>⚡ Lightning Fast</h3>
+      <p>Our servers deliver shortened URLs instantly with industry-leading response times.</p>
+    </div>
+    <div class="feature animate-down">
+      <h3>🔒 Secure & Private</h3>
+      <p>All links are encrypted and protected with enterprise-grade security measures.</p>
+    </div>
+    <div class="feature animate-left">
+      <h3>📊 Advanced Analytics</h3>
+      <p>Get detailed insights into click-through rates, geographic data, and more.</p>
+    </div>
+    <div class="feature animate-right">
+      <h3>⚙️ Customizable</h3>
+      <p>Create branded short links with your own domain name and custom aliases.</p>
+    </div>
+  </section>
+
+  <div id="historyOverlay">
+  <button class="close-btn" onclick="hideHistory()">✖</button>
+  <h2>📂 History</h2>
+  <div id="historyList"></div>
+  <button onclick="deleteAllHistory()" style="background-color: Red; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 16px; cursor: pointer;">🗑️ Delete All</button>
+</div>
+<button onclick="location.href='http://localhost:8001/Quicklify.html'" style="
+  margin: 20px auto;
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: linear-gradient(90deg, #4d79ff, #ff4d4d);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+">
+  ⬅️ Back to Home
+</button>
+
+  <footer class="footer">
+    © 2025 Quicklify. All rights reserved.
+  </footer>
+
+  <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <script>
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+
+  function shortenUrl() {
+    const url = document.getElementById("longUrl").value.trim();
+    if (!url) return alert("Enter a valid URL");
+
+    fetch("shorten.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "url=" + encodeURIComponent(url)
+    })
+    .then(res => res.text())
+    .then(code => {
+      const finalUrl = window.location.origin + "/" + code.trim();
+      document.getElementById("shortUrl").value = finalUrl;
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("whatsapp-share").href = "https://wa.me/?text=" + encodeURIComponent(finalUrl);
+      document.getElementById("telegram-share").href = "https://t.me/share/url?url=" + encodeURIComponent(finalUrl);
+      document.getElementById("shareButtons").style.display = "block";
+      saveToHistory(finalUrl);
+    });
+  }
+
+  function copyShortUrl() {
+    const copyText = document.getElementById("shortUrl");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied to clipboard!");
+  }
+
+  function generateQRCode() {
+    const shortUrl = document.getElementById("shortUrl").value;
+    const container = document.getElementById("qrCodeContainer");
+    container.innerHTML = "";
+    new QRCode(container, {
+      text: shortUrl,
+      width: 150,
+      height: 150
+    });
+  }
+
+  function refreshForm() {
+    document.getElementById("longUrl").value = "";
+    document.getElementById("shortUrl").value = "";
+    document.getElementById("resultBox").style.display = "none";
+    document.getElementById("qrCodeContainer").innerHTML = "";
+    document.getElementById("shareButtons").style.display = "none";
+  }
+
+  function saveToHistory(shortUrl) {
+    const longUrl = document.getElementById("longUrl").value.trim();
+    let history = JSON.parse(localStorage.getItem("shortHistory") || "[]");
+    history.unshift({
+      original: longUrl,
+      short: shortUrl,
+      date: new Date().toLocaleString()
+    });
+    localStorage.setItem("shortHistory", JSON.stringify(history));
+  }
+
+  function showHistory() {
+    const historyList = document.getElementById("historyList");
+    const historyOverlay = document.getElementById("historyOverlay");
+    const history = JSON.parse(localStorage.getItem("shortHistory") || "[]");
+    historyList.innerHTML = "";
+
+    history.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "history-entry";
+      div.innerHTML = `
+        <time>📅 ${item.date}</time>
+        <div><b>🔗 Original:</b> <a href="${item.original}" target="_blank">${item.original}</a></div>
+        <div><b>✨ Short:</b> <a href="${item.short}" target="_blank">${item.short}</a></div>
+      `;
+      historyList.appendChild(div);
+    });
+
+    historyOverlay.classList.add("active");
+  }
+
+  function hideHistory() {
+    document.getElementById("historyOverlay").classList.remove("active");
+  }
+
+  function clearHistory() {
+    localStorage.removeItem("shortHistory");
+    showHistory();
+  }
+  function deleteAllHistory() {
+  const confirmDelete = confirm("Are you sure you want to delete all history?");
+  if (confirmDelete) {
+    localStorage.removeItem("shortHistory");
+    document.getElementById("historyList").innerHTML = ""; // Clear the list visually
+    hideHistory(); // Close overlay if you want
+  }
+}
+</script>
+</body>
+</html>
