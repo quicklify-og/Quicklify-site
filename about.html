@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – Quicklify</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #d0f0fd 50%, #c1fcd3 50%);
+      color: #222;
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .topbar .title-logo {
+      font-size: 30px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ffffff, #c2f0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #00b894, #00cec9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: zoom-in 0.8s ease-in-out;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fade-in 1s ease;
+    }
+
+    .section-box {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .section-box:hover {
+      transform: scale(1.015);
+    }
+
+    .section-box h2 {
+      color: #0077cc;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .section-box p {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 40px auto 0;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00cec9, #0072ff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      padding: 14px 10px;
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      color: white;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoom-in {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 28px; }
+      .section-box h2 { font-size: 20px; }
+      .section-box p { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="title-logo">Quicklify</div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>About Quicklify</h1>
+  </section>
+
+  <!-- Content Section -->
+  <section class="content">
+    <div class="section-box">
+      <h2>🚀 Our Mission</h2>
+      <p>Quicklify exists to simplify everyday digital tasks for everyone. From link management to file conversion, we deliver fast, stylish, and useful tools all in one place.</p>
+
+      <h2>🎯 What We Offer</h2>
+      <p>We provide tools like URL shorteners, QR generators, image editors, PDF compressors, and more — built with elegance and speed, designed for mobile and desktop users alike.</p>
+
+      <h2>🌟 Why We Built It</h2>
+      <p>We believe productivity tools should not only work great but also look great. Quicklify combines functionality with a clean and animated UI, so users enjoy the process too.</p>
+
+      <h2>🔮 What's Next</h2>
+      <p>We're constantly evolving. New features like analytics, history sync, and more tools are in development. We also listen closely to your feedback to keep improving.</p>
+    </div>
+    <div style="margin-top: 60px; padding: 40px 20px; background: linear-gradient(135deg, #fdfbfb, #ebedee); border-radius: 20px;">
+  <h2 style="text-align:center; font-size: 28px; color: #4d4d4d;">Connect With Us</h2>
+  <p style="text-align:center; font-size: 16px; color: #666; max-width: 800px; margin: 10px auto;">
+    We’re building Quicklify to make the web easier for everyone. Join us on our journey and get involved with the community. Follow us on social platforms to stay updated with latest features and news!
+  </p>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://facebook.com" target="_blank" style="margin: 0 12px; display: inline-block; transition: transform 0.3s;">
+      <img src="https://img.icons8.com/ios-filled/40/4d79ff/facebook--v1.png"/>
+    </a>
+    <a href="https://instagram.com" target="_blank" style="margin: 0 12px; display: inline-block; transition: transform 0.3s;">
+      <img src="https://img.icons8.com/ios-filled/40/ff4d4d/instagram-new.png"/>
+    </a>
+    <a href="https://twitter.com" target="_blank" style="margin: 0 12px; display: inline-block; transition: transform 0.3s;">
+      <img src="https://img.icons8.com/ios-filled/40/1da1f2/twitter.png"/>
+    </a>
+    <a href="https://linkedin.com" target="_blank" style="margin: 0 12px; display: inline-block; transition: transform 0.3s;">
+      <img src="https://img.icons8.com/ios-filled/40/0e76a8/linkedin.png"/>
+    </a>
+  </div>
+</div>
+
+    <a href="Quicklify.html" class="back-button">← Back to Home</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 <strong>Quicklify</strong>. Crafted to simplify your digital world.
+  </footer>
+
+</body>
+</html>

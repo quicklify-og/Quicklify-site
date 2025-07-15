@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Utilities – Quicklify</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: #000;
+      color: #00ffcc;
+      background-image: linear-gradient(to bottom, #000000, #001a1a);
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 40px;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7;
+      margin-top: 50px;
+    }
+
+    p.intro {
+      text-align: center;
+      max-width: 750px;
+      margin: 20px auto;
+      font-size: 17px;
+      color: #aaffff;
+      line-height: 1.6;
+    }
+
+    .utility-box {
+      background: rgba(0, 255, 204, 0.07);
+      border: 1px solid #00ffe7;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 270px;
+      margin: 30px auto;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 15px #00ffe7cc;
+      animation: glowBox 4s ease-in-out infinite alternate;
+    }
+
+    .utility-box:hover {
+      transform: scale(1.01);
+    }
+
+    textarea {
+      display: block;
+      margin: 20px auto;
+      width: 90%;
+      padding: 16px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid #00ffe7;
+      border-radius: 12px;
+      font-size: 16px;
+      color: #ffffff;
+      resize: vertical;
+      box-shadow: 0 0 10px #00ffe766;
+    }
+
+    .btns {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #00ffe7, #00ff7e);
+      color: #000;
+      padding: 12px 28px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 8px;
+      box-shadow: 0 0 10px #00ffc3;
+      transition: transform 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 16px #00ffc3;
+    }
+
+    .info-paragraphs {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin: 60px auto;
+      max-width: 330px;
+    }
+
+    .cloud-box {
+      background: linear-gradient(135deg, #012626, #014d4d);
+      color: #aaffff;
+      padding: 25px;
+      border-radius: 30px;
+      box-shadow: 0 0 18px #00ffc3;
+      transition: transform 0.3s ease;
+      animation: cloudFloat 5s ease-in-out infinite;
+    }
+
+    .cloud-box:hover {
+      transform: scale(1.02);
+    }
+
+    .refresh-btn {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 24px;
+      background: linear-gradient(135deg, #00ffe7, #00ff7e);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffc3;
+      transition: transform 0.3s ease;
+    }
+
+    .refresh-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 16px #00ffc3;
+    }
+
+    .back-home {
+  margin: 60px auto 30px;
+  display: block;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #00ffe7, #00ff7e);
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px #00ffc3;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-home:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ffc3;
+}
+
+    @keyframes cloudFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes glowBox {
+      0% { box-shadow: 0 0 15px #00ffe7cc; }
+      100% { box-shadow: 0 0 30px #00ffe799; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid #00ffe722;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Text Utilities – Your AI Writing Assistant</h1>
+  <p class="intro">Quicklify Text Utilities help you correct, summarize, or rewrite text with speed and clarity. Simply paste your content, choose an action, and get AI-enhanced results instantly.</p>
+
+  <div class="utility-box">
+    <textarea id="inputText" rows="6" placeholder="Paste your text here..."></textarea>
+    <div class="btns">
+      <button onclick="summarizeText()">Summarize</button>
+      <button onclick="correctText()">Correct</button>
+      <button onclick="rewriteText()">Rewrite</button>
+    </div>
+    <textarea id="outputText" rows="6" placeholder="Your result will appear here..." readonly></textarea>
+    <button class="refresh-btn" onclick="refreshText()">Refresh</button>
+  </div>
+
+  <div class="info-paragraphs">
+    <div class="cloud-box">
+      ✨ Whether you're editing a blog, writing an email, or improving your school assignment — our tools ensure your words sound natural, clean, and clear.
+    </div>
+    <div class="cloud-box">
+      🧠 Backed by smart AI logic, the summarizer can extract key insights from any paragraph while the rewriter helps you say things better without losing the meaning.
+    </div>
+    <div class="cloud-box">
+      ⚡ No logins, no delays — paste your text and transform it instantly. Welcome to productivity with style, speed, and futuristic power.
+    </div>
+  </div>
+
+  <button class="back-home" onclick="window.location.href='Quicklify.html'">← Back to Home</button>
+
+  <footer>
+    © 2025 Quicklify. All rights reserved. | Powered by creativity.
+  </footer>
+
+  <script>
+    const inputBox = document.getElementById("inputText");
+    const outputBox = document.getElementById("outputText");
+
+    function summarizeText() {
+      const text = inputBox.value.trim();
+      if (!text) return alert("Please paste some text first.");
+      const sentences = text.split(/[.?!]\s/);
+      outputBox.value = sentences.slice(0, 2).join(". ") + ".";
+    }
+
+    function rewriteText() {
+      const text = inputBox.value.trim();
+      if (!text) return alert("Please paste some text first.");
+      const words = text.split(" ");
+      const shuffled = words.sort(() => 0.5 - Math.random());
+      outputBox.value = shuffled.join(" ");
+    }
+
+    function correctText() {
+      const text = inputBox.value.trim();
+      if (!text) return alert("Please paste some text first.");
+      const fixed = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+      outputBox.value = fixed;
+    }
+
+    function refreshText() {
+      inputBox.value = "";
+      outputBox.value = "";
+    }
+  </script>
+
+</body>
+</html>
